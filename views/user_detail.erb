@@ -1,10 +1,13 @@
-<h2 class="header center"><%= @user.name %>
-  <a style="font-size: 10px" href="/users/<%= @user.id %>/edit">Edit</a>
-  <form style="display: inline; font-size: 10px;" action="/users/<%= @user.id %>" method="post">
-    <input type="hidden" name="_method" value="delete">
-    <button style="display: inline; color: 66CCFF;" class="delete-btn" type="submit">Delete</button>
-  </form>
-</h2>
+<div class="row">
+  <div class="center">
+    <h2 class="header center"><%= @user.name %></h2>
+    <a style="font-size: 10px" href="/users/<%= @user.id %>/edit">Edit</a>
+    <form style="display: inline; font-size: 10px;" action="/users/<%= @user.id %>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <button style="display: inline; color: 66CCFF;" class="delete-btn" type="submit">Delete</button>
+    </form>
+  </div>
+</div>
 <div class="row">
 
   <img class="materialboxed" id="user_avatar" src="/img/picture.jpg" alt="user_avatar" />

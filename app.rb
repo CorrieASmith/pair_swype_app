@@ -42,6 +42,7 @@ post('/sessions') do
 end
 
 get('/users/new') do
+  @cohorts = Cohort.all
   erb(:add_user)
 end
 
@@ -60,3 +61,7 @@ get('/users/:id') do
   @user = User.find(id)
   erb(:user_detail)
 end
+
+# delete('/users/:id') do
+#   @
+# end

@@ -9,7 +9,9 @@
 /* label focus color */
 .input-field input[type=text]:focus + label,
 .input-field input[type=password]:focus + label,
-.input-field input[type=email]:focus + label {
+.input-field input[type=email]:focus + label
+.input-field select:focus + label,
+{
   color: #ff4081;
 }
 /* label underline focus color */

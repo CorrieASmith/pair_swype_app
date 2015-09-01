@@ -10,12 +10,25 @@
         <label for="last_name">Last Name</label>
       </div>
     </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <select class="browser-default" name="cohort_id">
+          <option value="">Choose Your Cohort</option>
+          <% @cohorts.each do |cohort| %>
+          <option><%= cohort.language %> - <%= cohort.trimester %> - <%= cohort.year %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+
     <div class="row">
       <div class="input-field col s12">
         <input id="password" name="password" type="password" class="validate">
         <label for="password">Password</label>
       </div>
     </div>
+
     <div class="row">
       <div class="input-field col s12">
         <input id="email" name="email" type="email" class="validate">
