@@ -10,5 +10,10 @@ describe User do
     test_user1 = User.new(name: "")
     expect(test_user1.save).to eq false
   end
-  
+
+  it 'titlecases the name before save' do
+    test_user1 = User.create(name: "dave")
+    expect(test_user1.name).to eq "Dave"
+  end
+
 end
