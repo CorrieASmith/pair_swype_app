@@ -19,30 +19,3 @@
     <button class="btn-large waves-effect waves-light pink accent-1" type="submit">Add</button>
   </form>
 </div>
-<br>
-
-
-<form action="/questions" method="post">
-  <input type="hidden" name="_method" value="delete">
-    <% if Question.any? %>
-      <select id="question_id" name="question_id" type="text">
-        <% Question.all.each do |question| %>
-        <option value="<%= question.id %>"><%= question.description %></option>
-        <% end %>
-      </select>
-      <button class="btn-large waves-effect waves-light pink accent-1" type="submit">Delete</button>
-    <% end %>
-</form>
-
-
-<!-- 
-
-<div class="input-field col s12">
-    <select>
-      <option value="" disabled selected>Choose your option</option>
-      <option value="1">Option 1</option>
-      <option value="2">Option 2</option>
-      <option value="3">Option 3</option>
-    </select>
-    <label>Materialize Select</label>
-  </div> -->
