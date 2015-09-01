@@ -12,20 +12,20 @@
   <nav class="cyan accent-3" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Pair Swype</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="/login">Login</a></li>
+        <li><a href="/sessions/new">Login</a></li>
         <li><a href="/users/new">Create Account</a></li>
 
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
-        <li><a href="/login">Login</a></li>
+        <li><a href="/sessions/new">Login</a></li>
         <li><a href="/users/new">Create Account</a></li>
 
       </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
-  <div class="container">
+  <div class="container main-content">
     <%= yield %>
   </div>
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
