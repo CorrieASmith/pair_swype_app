@@ -15,7 +15,7 @@ enable :sessions
 helpers do
 
   def login?
-    if session[:username].nil?
+    if session[:user_id].nil?
       return false
     else
       return true
@@ -23,7 +23,7 @@ helpers do
   end
 
   def username
-    return session[:username]
+    return session[:user_id]
   end
 
 end
@@ -65,6 +65,25 @@ get('/users/:id') do
   id = params.fetch('id').to_i
   @user = User.find(id)
   erb(:user_detail)
+end
+
+get('/users/:id/edit') do
+  id = params.fetch('id').to_i
+  @user = User.find(id)
+  @cohorts = Cohort.all
+  erb(:user_edit)
+end
+
+patch('/users/:id') do
+  id = params.fetch('id').to_i
+  @user = User.find(id)
+  name = params.fetch("first_name", @user.name)
+  last_name = params.fetch("last_name", @user.last_name)
+  email = params.fetch("email", @user.email)
+  password = params.fetch("password", @user.password)
+  cohort_id = params.fetch("cohort_id", @user.cohort_id).to_i
+  @user.update({:name => name, :last_name => last_name, :email => email, :password => password, :cohort_id => cohort_id})
+  redirect("/users/#{id}")
 end
 
 delete('/users/:id') do
