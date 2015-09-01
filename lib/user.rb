@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   belongs_to :cohort
   has_many :responses
-  has_many :preferences, through: :responses
+  has_many :questions, through: :responses
   before_save(:title_case)
 
   validates(:name, presence: true)

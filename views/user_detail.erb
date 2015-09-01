@@ -1,0 +1,41 @@
+<h2 class="header center"><%= @user.name %>
+  <a style="font-size: 10px" href="/users/<%= @user.id %>/edit">Edit</a>
+  <form style="display: inline; font-size: 10px;" action="/users/<%= @user.id %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <button style="display: inline; color: 66CCFF;" class="delete-btn" type="submit">Delete</button>
+  </form>
+</h2>
+
+<img src="/img/picture.jpg" alt="user_avatar" />
+
+<div class="col s10 m9 l10">
+  <h5 class="header center">Preferences</h5>
+
+  <table class="hoverable centered">
+    <thead>
+      <tr>
+        <th data-field="id">Prefence</th>
+        <th data-field="answers">Answers</th>
+        <th data-field="date">Edit</th>
+        <th data-field="button">Remove</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @user.preferences.each do |preference| %>
+      <tr>
+        <td><a href="/preferences/<%= preference.id %>"><%= preference.name %></a></td>
+        <td><a href="/preferences/<%= preference.id %>"><%= preference.users.length %></a></td>
+        <td><%= preference.created_at.strftime('%m . %d . %y') %></td>
+        <td>
+          <form action="/users/<%= @user.id %>" method="post">
+            <input type="hidden" name="_method" value="patch">
+            <input type="hidden" name="destroy_id" value="<%= preference.id %>">
+            <button type="submit" class="btn-flat">Remove</button>
+          </form>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
