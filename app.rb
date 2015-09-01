@@ -1,7 +1,7 @@
 require("bundler/setup")
 Bundler.require(:default)
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
-require 'pry'
+
 
 get('/') do
   erb(:index)
@@ -12,12 +12,16 @@ get('/admin_login') do
 end
 
 get('/admin') do
-  @questions = Question.all()
   erb(:admin)
 end
 
 post('/questions') do
-  @questions = Question.all()
-  @question = Question.create({description: params['description']})
+  Question.create({description: params['description']})
+  redirect '/admin'
+end
+
+delete('/questions') do
+  question  = Question.find(params["question_id"])
+  question.destroy
   redirect '/admin'
 end
