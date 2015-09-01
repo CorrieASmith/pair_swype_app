@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  belongs_to :cohort
   has_many :responses
   has_many :preferences, through: :responses
   before_save(:title_case)
