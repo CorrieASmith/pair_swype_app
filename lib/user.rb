@@ -4,11 +4,12 @@ class User < ActiveRecord::Base
   has_many :questions, through: :responses
   before_save(:title_case)
 
+
   validates(:name, presence: true)
   validates(:last_name, presence: true)
   validates(:email, presence: true)
   validates(:password, { presence: true, length: { minimum: 8, maximum: 12 }})
-  
+
 private
 
   def title_case
@@ -19,5 +20,6 @@ private
     end
     self.name = words.join(" ")
   end
+
 
 end

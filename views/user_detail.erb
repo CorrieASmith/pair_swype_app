@@ -1,11 +1,8 @@
 <div class="row">
   <div class="center">
-    <h2 class="header center"><%= @user.name %></h2>
-    <a style="font-size: 10px" href="/users/<%= @user.id %>/edit">Edit</a>
-    <form style="display: inline; font-size: 10px;" action="/users/<%= @user.id %>" method="post">
-      <input type="hidden" name="_method" value="delete">
-      <button style="display: inline; color: 66CCFF;" class="delete-btn" type="submit">Delete</button>
-    </form>
+    <h2 class="header center"><%= @user.name %><%= @user.last_name %></h2>
+    <a style="font-size: 10px" href="/users/<%= @user.id %>/edit">Edit</a> |
+    <a style="font-size: 10px" class="modal-trigger" href="#modal1">Delete User</a>
   </div>
 </div>
 <div class="row">
@@ -14,6 +11,24 @@
 
 </div>
 <div class="col s10 m9 l10">
+
+  <h5 class="header center"><%= @user.cohort.season %></h5>
+  <h5 class="header center"><%= @user.email %></h5>
   <h5 class="header center">Preferences</h5>
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content center">
+      <h4>Are you sure?</h4>
+      <p>Click Delete below to Confirm</p>
+    </div>
+    <div class="text-right modal-footer">
+      <form action="/users/<%= @user.id %>" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <button style="display: inline; color: 66CCFF;" class="modal-action modal-close waves-effect waves-red btn-flat" type="submit">Delete</button>
+        <a class="modal-action modal-close">Cancel</a>
+      </form>
+    </div>
+  </div>
 
 </div>

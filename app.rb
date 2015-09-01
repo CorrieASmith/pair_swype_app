@@ -5,10 +5,9 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 require 'sinatra/base'
 
 before do
-  Cohort.destroy_all
-  Cohort.create({language: 'Ruby', trimester: 2, year: 2015})
-  Cohort.create({language: 'PHP', trimester: 2, year: 2015})
-  Cohort.create({language: 'Java', trimester: 2, year: 2015})
+  Cohort.first_or_create({language: 'Ruby', trimester: 2, year: 2015})
+  Cohort.first_or_create({language: 'PHP', trimester: 2, year: 2015})
+  Cohort.first_or_create({language: 'Java', trimester: 2, year: 2015})
 end
 
 enable :sessions
@@ -68,6 +67,9 @@ get('/users/:id') do
   erb(:user_detail)
 end
 
-# delete('/users/:id') do
-#   @
-# end
+delete('/users/:id') do
+  id = params.fetch('id').to_i
+  user = User.find(id)
+  user.destroy
+  redirect('/')
+end
