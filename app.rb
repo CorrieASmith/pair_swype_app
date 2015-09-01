@@ -4,7 +4,12 @@ Bundler.require(:default)
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 require 'sinatra/base'
 
-
+before do
+  Cohort.destroy_all
+  Cohort.create({language: 'Ruby', trimester: 2, year: 2015})
+  Cohort.create({language: 'PHP', trimester: 2, year: 2015})
+  Cohort.create({language: 'Java', trimester: 2, year: 2015})
+end
 
 enable :sessions
 
@@ -51,7 +56,8 @@ post('/users') do
   last_name = params.fetch("last_name")
   email = params.fetch("email")
   password = params.fetch("password")
-  user = User.create({:name => name, :last_name => last_name, :email => email, :password => password})
+  cohort_id = params["cohort_id"].to_i
+  user = User.create({:name => name, :last_name => last_name, :email => email, :password => password, :cohort_id => cohort_id})
   id = user.id
   redirect("/users/#{id}")
 end

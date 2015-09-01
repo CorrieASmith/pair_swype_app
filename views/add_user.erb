@@ -16,7 +16,7 @@
         <select class="browser-default" name="cohort_id">
           <option value="">Choose Your Cohort</option>
           <% @cohorts.each do |cohort| %>
-          <option><%= cohort.language %> - <%= cohort.trimester %> - <%= cohort.year %></option>
+          <option value="<%= cohort.id %>"><%= cohort.language %> - <%= cohort.season %> - <%= cohort.year %></option>
           <% end %>
         </select>
       </div>
