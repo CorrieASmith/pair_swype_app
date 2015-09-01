@@ -1,0 +1,18 @@
+<% if Question.any? %>
+  <ol>
+    <% Question.all.each do |question| %>
+      <li><%= question.description %>
+        <form action="/quiz/responses">
+          <p>
+            <input name="true" type="radio" id="true" value="true"/>
+            <label for="true">True</label>
+          </p>
+          <p>
+            <input name="false" type="radio" id="false" />
+            <label for="false">False</label>
+          </p>
+        </form>
+      </li>
+    <% end %>
+  </ol>
+<% end %>

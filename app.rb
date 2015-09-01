@@ -25,3 +25,7 @@ delete('/questions') do
   question.destroy
   redirect '/admin'
 end
+
+get('/quiz') do
+  erb(:quiz)
+end
