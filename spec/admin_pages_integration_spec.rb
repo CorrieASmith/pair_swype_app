@@ -12,4 +12,11 @@ describe('the admin path', {:type=> :feature}) do
     click_on('Submit')
     expect(page).to have_content("Welcome")
   end
+
+  it('allows the admin to add a new question') do
+    visit('/admin')
+    fill_in("description", :with => "I am most successful when:")
+    click_button("Add")
+    expect(page).to have_content("I am most successful when:")
+  end
 end
