@@ -1,0 +1,11 @@
+<h1>Welcome</h1>
+
+<% if Question.any? %>
+  <% Question.all.each do |question| %>
+    <ol>
+      <li><%= question.description %></li>
+    </ol>
+  <% end %>
+<% else %>
+ <p> Add questions </p>
+<% end %>
