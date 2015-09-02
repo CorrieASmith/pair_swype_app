@@ -2,6 +2,7 @@ require("bundler/setup")
 Bundler.require(:default)
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 require 'sinatra/base'
+require 'pry'
 
 before do
   Cohort.where(language: 'Ruby').first_or_create({trimester: 2, year: 2015})
@@ -73,13 +74,26 @@ get('/quiz') do
 end
 
 get ('/users/:id/preferences') do
-  @user = User.find(params["id"])
+  user_id = session[:user_id]
+  @user = User.find(user_id)
   erb(:preferences)
 end
 
-# post('/quiz') do
-# erb(:preferences)
-# end
+post('/quiz') do
+  user_id = session[:user_id]
+  @user = User.find(user_id)
+  Question.all.each do |question|
+    value = params["#{question.id}"]
+    question_id = question.id
+    if Response.find_by({:user_id => user_id, :question_id => question_id})
+      update_response = Response.find_by({:user_id => user_id, :question_id => question_id})
+      update_response.update({:value => value})
+    else
+      Response.create({:user_id => user_id, :question_id => question_id, :value => value})
+    end
+  end
+  redirect("/users/#{user_id}/preferences")
+end
 
 get('/sessions/logout') do
   session[:user_id] = nil
