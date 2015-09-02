@@ -16,6 +16,21 @@
       <label for="description">Question</label>
       <input name="description" id="description" type="text">
     </div>
-    <button class="btn-large waves-effect waves-light pink accent-1" type="submit">Add</button>
+    <button class="btn-large waves-effect waves-light pink accent-2" type="submit">Add</button>
   </form>
 </div>
+
+
+<% if Question.any? %>
+  <form action="/questions" method="post">
+    <input type="hidden" value="delete" name="_method">
+    <label>Select Question</label>
+      <select id="question_id" name='question_id' type='text' class="browser-default">
+        <option value="" disabled selected>Choose a question</option>
+        <% Question.all.each do |question| %>
+          <option value="<%= question.id %>"><%= question.description %></option>
+        <% end %>
+      </select>
+    <button class="btn-large waves-effect waves-light pink accent-1" type="submit">Delete</button>
+  </form>
+<% end %>
