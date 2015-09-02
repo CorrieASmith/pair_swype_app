@@ -50,5 +50,29 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
   <script src="/js/scripts.js"></script>
+  <!-- Modal Structure -->
+  <div id="delete-modal" class="modal">
+    <div class="modal-content center">
+      <h4>Are you sure you want to delete your account?</h4>
+      <p>Click Delete below to Confirm</p>
+    </div>
+    <div class="text-right modal-footer">
+      <form action="/users/<%= session[:user_id] %>" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <button style="display: inline; color: 66CCFF;" class="modal-action modal-close waves-effect waves-red btn-flat" type="submit">Delete</button>
+        <a class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
+      </form>
+    </div>
+  </div>
+
+  <div id="logout-modal" class="modal">
+    <div class="modal-content center">
+      <h4>Are you sure you want to log out?</h4>
+      <p>Click Logout below to Confirm</p>
+    </div>
+    <div class="modal-footer">
+      <a href="/sessions/logout" class="modal-action modal-close waves-effect waves-red btn-flat">Logout</a>
+      <a class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
+    </div>
 </body>
 </html>
