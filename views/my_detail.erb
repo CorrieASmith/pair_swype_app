@@ -1,8 +1,8 @@
 <div class="row">
   <div class="center">
     <h2 class="header center"><%= @user.name %> <%= @user.last_name %></h2>
-    <a style="font-size: 10px" href="/users/<%= @user.id %>/edit">Edit</a> |
-    <a style="font-size: 10px" class="modal-trigger" href="#delete-modal">Delete User</a>
+    <a style="font-size: 10px" href="/users/<%= @user.id %>/edit">Edit Profile</a> |
+    <a style="font-size: 10px" class="modal-trigger" href="#delete-modal">Delete Profile</a>
   </div>
 </div>
 <%= erb :detail_partial %>

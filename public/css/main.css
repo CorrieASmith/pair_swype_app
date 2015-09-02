@@ -41,3 +41,8 @@
   font-family: 'short stack';
   font-weight: bolder;
 }
+
+.add-pair-btn {
+  display: block;
+  margin: 0 auto;
+}

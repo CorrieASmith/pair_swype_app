@@ -7,8 +7,9 @@
   <h5 class="header center"><%= @user.cohort.season %> <%= @user.cohort.language %></h5>
   <h5 class="header center"><%= @user.email %></h5>
   <h5 class="header center">Preferences</h5>
+  <br>
   <h5 class="header center">Upcoming Pairs</h5>
-
+  <br>
   <div class="col s5 m5 l5">
 
     <table class="hoverable centered">
@@ -23,7 +24,7 @@
         <% @user.pairs.each do |pair| %>
         <tr>
           <td><a href="/users/<%= pair.partner.id %>"><%= pair.partner.name %></a></td>
-          <td><a href="/users/<%=  %>"><%= pay.day %></a></td>
+          <td><a href="/users/<%=  %>"><%= pair.day %></a></td>
         </tr>
         <% end %>
       </tbody>
