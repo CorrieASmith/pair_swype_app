@@ -72,6 +72,7 @@ get('/quiz') do
   end
 end
 
+
 get('/sessions/logout') do
   session[:user_id] = nil
   redirect('/')
