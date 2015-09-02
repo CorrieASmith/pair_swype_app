@@ -52,10 +52,6 @@ delete('/questions') do
   redirect '/admin'
 end
 
-get('/quiz') do
-  erb(:quiz)
-end
-
 get('/sessions/new') do
   erb(:user_login)
 end
@@ -66,6 +62,14 @@ post('/sessions') do
   id = user.id
   session[:user_id] = id
   redirect("/users/#{id}")
+end
+
+get('/quiz') do
+  if session[:user_id]
+    erb(:quiz)
+  else
+    redirect("/sessions/new")
+  end
 end
 
 get('/users/new') do
