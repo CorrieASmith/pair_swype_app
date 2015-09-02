@@ -73,6 +73,7 @@ get('/quiz') do
 end
 
 get ('/users/:id/preferences') do
+  @user = User.find(params["id"])
   erb(:preferences)
 end
 

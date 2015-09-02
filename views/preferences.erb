@@ -1,1 +1,10 @@
-hi
+<% if @user.questions.any? %>
+  <% @user.questions.each do |question| %>
+    <ol>
+      <li><%= question.description %> </li>
+    </ol>
+  <% end %>
+<% else %>
+<h5 class="header center">You haven't created any preferences yet!</h5>
+<p class="header center"><a href="/quiz" id="download-button" class="btn-large waves-effect waves-light pink accent-2">Take Preference Quiz</a></p>
+<% end %>
