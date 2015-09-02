@@ -1,14 +1,14 @@
 <% if Question.any? %>
-  <form action="/quiz/responses">
+  <form action="/quiz" method= "post">
     <ol>
       <% Question.all.each do |question| %>
         <li><%= question.description %>
             <p>
-              <input name="<%= question.id %>" type="radio" id="true-<%= question.id %>"/>
+              <input name="<%= question.id %>" type="radio" id="true-<%= question.id %>" value="true"/>
               <label for="true-<%= question.id %>">True</label>
             </p>
             <p>
-              <input name="<%= question.id %>" type="radio" id="false-<%= question.id %>"/>
+              <input name="<%= question.id %>" type="radio" id="false-<%= question.id %>" value= "false"/>
               <label for="false-<%= question.id %>">False</label>
             </p>
         </li>

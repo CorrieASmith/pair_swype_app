@@ -52,10 +52,6 @@ delete('/questions') do
   redirect '/admin'
 end
 
-get('/quiz') do
-  erb(:quiz)
-end
-
 get('/sessions/new') do
   erb(:user_login)
 end
@@ -67,6 +63,15 @@ post('/sessions') do
   session[:user_id] = id
   redirect("/users/#{id}")
 end
+
+get('/quiz') do
+  if session[:user_id]
+    erb(:quiz)
+  else
+    redirect("/sessions/new")
+  end
+end
+
 
 get('/sessions/logout') do
   session[:user_id] = nil
@@ -89,9 +94,13 @@ post('/users') do
   email = params.fetch("email")
   password = params.fetch("password")
   cohort_id = params["cohort_id"].to_i
-  user = User.create({:name => name, :last_name => last_name, :email => email, :password => password, :cohort_id => cohort_id})
+  user = User.new({:name => name, :last_name => last_name, :email => email, :password => password, :cohort_id => cohort_id})
   id = user.id
-  redirect("/users/#{id}")
+  if user.save()
+    redirect("/users/#{id}")
+  else
+    redirect("/users/new")
+  end
 end
 
 get('/users/:id') do
