@@ -72,6 +72,10 @@ get('/quiz') do
   end
 end
 
+post('quiz') do
+erb(:preferences)
+end
+
 get('/sessions/logout') do
   session[:user_id] = nil
   redirect('/')

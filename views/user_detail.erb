@@ -14,7 +14,7 @@
 
   <h5 class="header center"><%= @user.cohort.season %> <%= @user.cohort.language %></h5>
   <h5 class="header center"><%= @user.email %></h5>
-  <h5 class="header center">Preferences</h5>
+  <p class="header center"><a href="/users/<%= @user.id %>/preferences" id="download-button" class="btn-large waves-effect waves-light pink accent-2">Preferences</a></h5>
 
   <!-- Modal Structure -->
   <div id="delete-modal" class="modal">
