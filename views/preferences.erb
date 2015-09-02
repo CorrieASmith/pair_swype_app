@@ -1,7 +1,12 @@
 <% if @user.questions.any? %>
   <ol>
     <% @user.questions.each do |question| %>
-      <li><%= question.description %> </li>
+      <li><%= question.description %>
+        <p><% question.responses.each do |response| %>
+            <%= response.value %>
+          <% end %>
+        </p>
+      </li>
     <% end %>
   </ol>
 <% else %>
