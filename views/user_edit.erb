@@ -1,0 +1,45 @@
+<h3>Edit User</h3>
+
+<div class="row">
+  <form class="col s12" action="/users/<%= @user.id %>" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <div class="row">
+      <div class="input-field col s6">
+        <input placeholder="First" id="first_name" name="first_name" type="text" class="validate" value="<%= @user.name %>">
+        <label for="first_name">Edit Name</label>
+      </div>
+      <div class="input-field col s6">
+        <input placeholder="Last" id="last_name" name="last_name" type="text" class="validate" value="<%= @user.last_name %>">
+        <label for="last_name">Last Name</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <select class="browser-default" name="cohort_id">
+          <option value="" disabled>Choose Your Cohort</option>
+          <% @cohorts.each do |cohort| %>
+          <option value="<%= cohort.id %>"><%= cohort.language %> - <%= cohort.season %> - <%= cohort.year %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="password" name="password" type="password" class="validate" value="<%= @user.password %>">
+        <label for="password">Password</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="email" name="email" type="email" class="validate" value="<%= @user.email %>">
+        <label for="email">Email</label>
+      </div>
+    </div>
+    <button class="btn waves-effect waves-light pink accent-2" type="submit">Save Changes</button>
+  </form>
+</div>
+
+<a href="/users/<%= @user.id %>" class="btn waves-effect waves-light teal accent-1">Back</a>

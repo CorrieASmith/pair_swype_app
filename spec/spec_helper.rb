@@ -16,8 +16,13 @@ RSpec.configure do |config|
     User.all.each do |user|
       user.destroy
     end
+<<<<<<< HEAD
     Question.all.each do |preference|
       preference.destroy
+=======
+    Question.all.each do |question|
+      question.destroy
+>>>>>>> origin/master
     end
   end
 end
