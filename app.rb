@@ -68,6 +68,11 @@ post('/sessions') do
   redirect("/users/#{id}")
 end
 
+get('/sessions/logout') do
+  session[:user_id] = nil
+  redirect('/')
+end
+
 get('/users/new') do
   @cohorts = Cohort.all
   erb(:add_user)
