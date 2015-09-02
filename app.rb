@@ -33,7 +33,6 @@ get('/') do
   erb(:index)
 end
 
-<<<<<<< HEAD
 get('/admin_login') do
   erb(:admin_login)
 end
@@ -55,7 +54,8 @@ end
 
 get('/quiz') do
   erb(:quiz)
-=======
+end
+
 get('/sessions/new') do
   erb(:user_login)
 end
@@ -114,5 +114,4 @@ delete('/users/:id') do
   user = User.find(id)
   user.destroy
   redirect('/')
->>>>>>> origin/master
 end
