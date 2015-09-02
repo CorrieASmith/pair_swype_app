@@ -4,9 +4,9 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 require 'sinatra/base'
 
 before do
-  Cohort.first_or_create({language: 'Ruby', trimester: 2, year: 2015})
-  Cohort.first_or_create({language: 'PHP', trimester: 2, year: 2015})
-  Cohort.first_or_create({language: 'Java', trimester: 2, year: 2015})
+  Cohort.where(language: 'Ruby').first_or_create({trimester: 2, year: 2015})
+  Cohort.where(language: 'PHP').first_or_create({trimester: 2, year: 2015})
+  Cohort.where(language: 'Java').first_or_create({trimester: 2, year: 2015})
 end
 
 enable :sessions
@@ -72,9 +72,19 @@ get('/quiz') do
   end
 end
 
+get('/sessions/logout') do
+  session[:user_id] = nil
+  redirect('/')
+end
+
 get('/users/new') do
   @cohorts = Cohort.all
   erb(:add_user)
+end
+
+get('/users') do
+  @users = User.all
+  erb(:users)
 end
 
 post('/users') do
@@ -83,9 +93,13 @@ post('/users') do
   email = params.fetch("email")
   password = params.fetch("password")
   cohort_id = params["cohort_id"].to_i
-  user = User.create({:name => name, :last_name => last_name, :email => email, :password => password, :cohort_id => cohort_id})
+  user = User.new({:name => name, :last_name => last_name, :email => email, :password => password, :cohort_id => cohort_id})
   id = user.id
-  redirect("/users/#{id}")
+  if user.save()
+    redirect("/users/#{id}")
+  else
+    redirect("/users/new")
+  end
 end
 
 get('/users/:id') do
