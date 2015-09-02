@@ -19,8 +19,5 @@ RSpec.configure do |config|
     Question.all.each do |preference|
       preference.destroy
     end
-    Question.all.each do |question|
-      question.destroy
-    end
   end
 end
