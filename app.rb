@@ -2,6 +2,7 @@ require("bundler/setup")
 Bundler.require(:default)
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 require 'sinatra/base'
+require 'pry'
 
 before do
   Cohort.where(language: 'Ruby').first_or_create({trimester: 2, year: 2015})
@@ -58,7 +59,7 @@ end
 
 post('/sessions') do
   email = params.fetch("email")
-  user = User.find_by email: email
+  user = User.where(email: email).first
   id = user.id
   session[:user_id] = id
   redirect("/users/#{id}")
@@ -95,8 +96,8 @@ post('/users') do
   password = params.fetch("password")
   cohort_id = params["cohort_id"].to_i
   user = User.new({:name => name, :last_name => last_name, :email => email, :password => password, :cohort_id => cohort_id})
-  id = user.id
   if user.save()
+    id = user.id
     redirect("/users/#{id}")
   else
     redirect("/users/new")
@@ -106,7 +107,11 @@ end
 get('/users/:id') do
   id = params.fetch('id').to_i
   @user = User.find(id)
-  erb(:user_detail)
+  if id == session[:user_id]
+    erb :my_detail
+  else
+    erb :user_detail
+  end
 end
 
 get('/users/:id/edit') do
@@ -124,7 +129,7 @@ patch('/users/:id') do
   email = params.fetch("email", @user.email)
   password = params.fetch("password", @user.password)
   cohort_id = params.fetch("cohort_id", @user.cohort_id).to_i
-  @user.update({:name => name, :last_name => last_name, :email => email, :password => password, :cohort_id => cohort_id})
+  @user.update_attributes({:name => name, :last_name => last_name, :email => email, :password => password, :cohort_id => cohort_id})
   redirect("/users/#{id}")
 end
 

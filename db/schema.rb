@@ -9,42 +9,47 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended that you check this file into your version control system.
+# It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901230259) do
+ActiveRecord::Schema.define(:version => 20150902181244) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "cohorts", force: :cascade do |t|
-    t.string  "language"
+  create_table "cohorts", :force => true do |t|
+    t.string  "language",  :limit => nil
     t.integer "trimester"
     t.integer "year"
   end
 
-  create_table "questions", force: :cascade do |t|
-    t.string   "description"
+  create_table "pairs", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "partner_id"
+    t.date     "day"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "responses", force: :cascade do |t|
+  create_table "questions", :force => true do |t|
+    t.string   "description", :limit => nil
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "responses", :force => true do |t|
     t.integer  "user_id"
     t.integer  "question_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "answer"
+    t.string   "answer",      :limit => nil
     t.boolean  "value"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "name"
+  create_table "users", :force => true do |t|
+    t.string   "name",       :limit => nil
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "last_name"
+    t.string   "last_name",  :limit => nil
     t.integer  "cohort_id"
-    t.string   "email"
-    t.string   "password"
+    t.string   "email",      :limit => nil
+    t.string   "password",   :limit => nil
   end
 
 end

@@ -1,21 +1,6 @@
 <div class="row">
   <div class="center">
     <h2 class="header center"><%= @user.name %> <%= @user.last_name %></h2>
-    <a style="font-size: 10px" href="/users/<%= @user.id %>/edit">Edit</a> |
-    <a style="font-size: 10px" class="modal-trigger" href="#modal1">Delete User</a>
   </div>
 </div>
-<div class="row">
-
-  <img class="materialboxed" id="user_avatar" src="/img/picture.jpg" alt="user_avatar" />
-
-</div>
-<div class="col s10 m9 l10">
-
-  <h5 class="header center"><%= @user.cohort.season %> <%= @user.cohort.language %></h5>
-  <h5 class="header center"><%= @user.email %></h5>
-  <h5 class="header center">Preferences</h5>
-
-
-
-</div>
+<%= erb :detail_partial %>
