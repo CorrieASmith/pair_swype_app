@@ -1,0 +1,21 @@
+<h1>Welcome</h1>
+<% if Question.any? %>
+<ol>
+  <% Question.all.each do |question| %>
+  <li><%= question.description %></li>
+  <% end %>
+</ol>
+<% else %>
+<p>Add questions</p>
+<% end %>
+
+
+<div class="row">
+  <form action="/questions" method="post" class="col s12">
+    <div class="input-field col s12">
+      <label for="description">Question</label>
+      <input name="description" id="description" type="text">
+    </div>
+    <button class="btn-large waves-effect waves-light pink accent-1" type="submit">Add</button>
+  </form>
+</div>
