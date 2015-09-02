@@ -4,7 +4,7 @@ describe('the admin path', {:type=> :feature}) do
   it('brings user to the admin login page') do
     visit("/")
     click_link("Admin")
-    expect(page).to have_content("Password")
+    expect(page).to have_content("Submit")
   end
 
   it('brings user to the admin page') do

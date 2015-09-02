@@ -5,7 +5,9 @@
     <% @user.questions.each do |question| %>
       <li><%= question.description %>
         <p><% question.responses.each do |response| %>
-            <%= response.value %>
+            <% if response.user_id == @user.id %>
+              <%= response.value %>
+            <% end %>
           <% end %>
         </p>
       </li>
