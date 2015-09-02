@@ -38,6 +38,11 @@ get('/admin_login') do
   erb(:admin_login)
 end
 
+post('/new_admin') do
+  Admin.create({password: params['password']})
+  redirect '/admin_login'
+end
+
 get('/admin') do
   erb(:admin)
 end

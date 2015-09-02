@@ -1,3 +1,4 @@
+
 <div class="container">
   <form class="col s12">
   <div class="input-field col s6">
@@ -7,4 +8,17 @@
   </form>
 
   <a href="/admin" id="download-button" class="btn-large waves-effect waves-light pink accent-2">Submit</a>
+
+
+<br><br><br>
+<h5 class="header center">Create Admin Password</h5>
+<form class="col s12" action="/new_admin" method="post">
+  <div class="row">
+    <div class="input-field col s6">
+      <input placeholder="Password" id="password" name="password" type="text" class="validate">
+      <label for="password"></label>
+    </div>
+  </div>
+  <button class="btn waves-effect waves-light pink accent-2" type="submit">Create</button>
+</form>
 </div>
