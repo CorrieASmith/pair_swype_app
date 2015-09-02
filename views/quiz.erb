@@ -1,5 +1,5 @@
 <% if Question.any? %>
-  <form action="/users/<%= user.id %>/quiz" method= "post">
+  <form action="/quiz" method= "post">
     <ol>
       <% Question.all.each do |question| %>
         <li><%= question.description %>
