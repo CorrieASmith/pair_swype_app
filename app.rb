@@ -4,9 +4,9 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 require 'sinatra/base'
 
 before do
-  Cohort.first_or_create({language: 'Ruby', trimester: 2, year: 2015})
-  Cohort.first_or_create({language: 'PHP', trimester: 2, year: 2015})
-  Cohort.first_or_create({language: 'Java', trimester: 2, year: 2015})
+  Cohort.where(language: 'Ruby').first_or_create({trimester: 2, year: 2015})
+  Cohort.where(language: 'PHP').first_or_create({trimester: 2, year: 2015})
+  Cohort.where(language: 'Java').first_or_create({trimester: 2, year: 2015})
 end
 
 enable :sessions
@@ -71,6 +71,11 @@ end
 get('/users/new') do
   @cohorts = Cohort.all
   erb(:add_user)
+end
+
+get('/users') do
+  @users = User.all
+  erb(:users)
 end
 
 post('/users') do

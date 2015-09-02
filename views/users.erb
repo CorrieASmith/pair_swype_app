@@ -1,0 +1,23 @@
+<h3 class="header center">Students</h3>
+<div class="col s10 m9 l10">
+
+  <table class="hoverable centered">
+    <thead>
+      <tr>
+          <th data-field="name">Name</th>
+          <th data-field="language">Language</th>
+          <th data-field="year">Year</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+      <tr>
+        <td><a href="/users/<%= user.id %>"><%= user.name %></a></td>
+        <td><a href="/users/<%= user.id %>"><%= user.cohort.language %></a></td>
+        <td><%= user.cohort.season %> <%= user.cohort.year %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
