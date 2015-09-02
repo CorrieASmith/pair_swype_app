@@ -144,5 +144,15 @@ post('/pairs') do
   day = params.fetch('day')
   partner_id = params.fetch('partner_id').to_i
   Pair.create({user_id: session[:user_id], partner_id: partner_id, day: day})
+  Pair.create({user_id: partner_id, partner_id: session[:user_id], day: day})
+
+  redirect("/users/#{session[:user_id]}")
+end
+
+delete('/pairs') do
+  pair_id = params.fetch('pair_id').to_i
+  pair = Pair.find(pair_id)
+  pair.destroy_inverse
+  pair.destroy
   redirect("/users/#{session[:user_id]}")
 end

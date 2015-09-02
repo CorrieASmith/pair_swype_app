@@ -19,5 +19,8 @@ RSpec.configure do |config|
     Question.all.each do |question|
       question.destroy
     end
+    Pair.all.each do |pair|
+      pair.destroy
+    end
   end
 end

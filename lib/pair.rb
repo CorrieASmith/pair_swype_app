@@ -6,4 +6,8 @@ class Pair < ActiveRecord::Base
   validates :user_id, uniqueness: { scope: :day }
   validates :partner_id, uniqueness: { scope: :day }
 
+  def destroy_inverse
+    inverse = Pair.where(user_id: self.partner_id, partner_id: self.user_id, day: day).first
+    inverse.destroy
+  end
 end

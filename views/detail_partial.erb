@@ -17,6 +17,8 @@
         <tr>
             <th data-field="partner">Partner</th>
             <th data-field="day">Day</th>
+            <th data-field="delete">Remove Pair</th>
+
         </tr>
       </thead>
 
@@ -25,6 +27,14 @@
         <tr>
           <td><a href="/users/<%= pair.partner.id %>"><%= pair.partner.name %></a></td>
           <td><a href="/users/<%=  %>"><%= pair.day %></a></td>
+          <td>
+            <form action="/pairs" method="post">
+              <input type="hidden" name="_method" value="delete">
+              <input type="hidden" name="pair_id" value="<%= pair.id %>">
+
+              <button type="submit" class="waves-effect waves-light btn-sma">Cancel</button>
+            </form>
+          </td>
         </tr>
         <% end %>
       </tbody>
