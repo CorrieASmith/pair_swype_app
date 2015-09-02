@@ -1,3 +1,5 @@
+<h2><%= @user.name %>'s Preferences</h2>
+
 <% if @user.questions.any? %>
   <ol>
     <% @user.questions.each do |question| %>
@@ -9,6 +11,9 @@
       </li>
     <% end %>
   </ol>
+  <% if @user.id == session[:user_id] %>
+    <p class="header center"><a href="/quiz" id="download-button" class="btn-large waves-effect waves-light pink accent-2">Retake Preference Quiz</a></p>
+  <% end %>
 <% else %>
 <h5 class="header center">You haven't created any preferences yet!</h5>
 <p class="header center"><a href="/quiz" id="download-button" class="btn-large waves-effect waves-light pink accent-2">Take Preference Quiz</a></p>

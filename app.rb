@@ -74,7 +74,7 @@ get('/quiz') do
 end
 
 get ('/users/:id/preferences') do
-  user_id = session[:user_id]
+  user_id = params["id"]
   @user = User.find(user_id)
   erb(:preferences)
 end
@@ -117,8 +117,8 @@ post('/users') do
   password = params.fetch("password")
   cohort_id = params["cohort_id"].to_i
   user = User.new({:name => name, :last_name => last_name, :email => email, :password => password, :cohort_id => cohort_id})
-  id = user.id
   if user.save()
+    id = user.id
     redirect("/users/#{id}")
   else
     redirect("/users/new")
