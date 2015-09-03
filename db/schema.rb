@@ -9,61 +9,57 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended that you check this file into your version control system.
+# It's strongly recommended to check this file into your version control system.
 
+ActiveRecord::Schema.define(:version => 20150903064658) do
 
-ActiveRecord::Schema.define(version: 20150903064658) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "admins", force: :cascade do |t|
+  create_table "admins", :force => true do |t|
     t.string   "password"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  create_table "cohorts", force: :cascade do |t|
+  create_table "cohorts", :force => true do |t|
     t.string  "language"
     t.integer "trimester"
     t.integer "year"
   end
 
-  create_table "pairs", force: :cascade do |t|
+  create_table "pairs", :force => true do |t|
     t.integer  "user_id"
     t.integer  "partner_id"
     t.date     "day"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  create_table "questions", force: :cascade do |t|
+  create_table "questions", :force => true do |t|
     t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
-  create_table "requests", force: :cascade do |t|
+  create_table "requests", :force => true do |t|
     t.integer  "user_id"
     t.integer  "sender_id"
     t.date     "day"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  create_table "responses", force: :cascade do |t|
+  create_table "responses", :force => true do |t|
     t.integer  "user_id"
     t.integer  "question_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "answer"
     t.boolean  "value"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "last_name"
     t.integer  "cohort_id"
     t.string   "email"

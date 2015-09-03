@@ -22,6 +22,13 @@ helpers do
     end
   end
 
+  def adminlogin?
+    if session[:admin_id].nil?
+      return false
+    else
+      return true
+    end
+  end
 end
 
 
@@ -38,13 +45,26 @@ end
 ########## admin ##########
 
 get('/admin_login') do
+  @admin = Admin.all
   erb(:admin_login)
 end
 
-post('/new_admin') do
-  Admin.create({password: params['password']})
-  redirect '/admin_login'
+
+post('/admin_login') do
+  @admin = Admin.find_by_password(params["password"])
+  if @admin
+    redirect("/admin")
+  else
+    redirect("/admin_login")
+  end
+  if @admin.login?
+    redirect("/admin")
+  else
+    redirect("/admin_login")
+  end
 end
+
+
 
 get('/admin') do
   erb(:admin)
