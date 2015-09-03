@@ -19,27 +19,26 @@
     <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Pair Swype</a>
       <ul class="right hide-on-med-and-down">
 
-        <% if login? %>
-        <li><a href="/quiz">Take Preference Quiz</a></li>
-        <li><a href="/users/<%= session[:user_id] %>">My Page</a></li>
-        <% else %>
+        <% if !(login?) %>
         <li><a href="/sessions/new">Login</a></li>
         <li><a href="/users/new">Create Account</a></li>
-
-        <% end %>
+        <% else %>
+        <li><a href="/quiz">Take Preference Quiz</a></li>
+        <li><a href="/users/<%= session[:user_id] %>">My Page</a></li>
         <li><a href="/users">Users</a></li>
         <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Account<i class="material-icons right">arrow_drop_down</i></a></li>
+        <% end %>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
         <li><a href="/">Home</a></li>
-        <% if login? %>
-        <li><a href="/users/<%= session[:user_id] %>">My Page</a></li>
-        <% else %>
+        <% if !(login?) %>
         <li><a href="/sessions/new">Login</a></li>
         <li><a href="/users/new">Create Account</a></li>
-        <% end %>
+        <% else %>
+        <li><a href="/users/<%= session[:user_id] %>">My Page</a></li>
         <li><a href="/users">Users</a></li>
+        <% end %>
       </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
@@ -50,5 +49,29 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
   <script src="/js/scripts.js"></script>
+  <!-- Modal Structure -->
+  <div id="delete-modal" class="modal">
+    <div class="modal-content center">
+      <h4>Are you sure you want to delete your account?</h4>
+      <p>Click Delete below to Confirm</p>
+    </div>
+    <div class="text-right modal-footer">
+      <form action="/users/<%= session[:user_id] %>" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <button style="display: inline; color: 66CCFF;" class="modal-action modal-close waves-effect waves-red btn-flat" type="submit">Delete</button>
+        <a class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
+      </form>
+    </div>
+  </div>
+
+  <div id="logout-modal" class="modal">
+    <div class="modal-content center">
+      <h4>Are you sure you want to log out?</h4>
+      <p>Click Logout below to Confirm</p>
+    </div>
+    <div class="modal-footer">
+      <a href="/sessions/logout" class="modal-action modal-close waves-effect waves-red btn-flat">Logout</a>
+      <a class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
+    </div>
 </body>
 </html>

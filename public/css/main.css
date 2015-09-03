@@ -41,3 +41,24 @@
   font-family: 'short stack';
   font-weight: bolder;
 }
+
+.add-pair-btn {
+  display: block;
+  margin: 0 auto;
+}
+
+.calender-form {
+  position: absolute;
+left: 50%;
+top: 25%;
+width: 50px;
+}
+
+.date {
+  width: 50%;
+  margin-left: 40%;
+}
+
+/*.dropdown-content .active {
+  color: #ff80ab;
+}*/

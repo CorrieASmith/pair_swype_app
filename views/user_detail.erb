@@ -1,44 +1,25 @@
-<div class="row">
-  <div class="center">
-    <h2 class="header center"><%= @user.name %> <%= @user.last_name %></h2>
-    <a style="font-size: 10px" href="/users/<%= @user.id %>/edit">Edit</a> |
-    <a style="font-size: 10px" class="modal-trigger" href="#modal1">Delete User</a>
-  </div>
-</div>
-<div class="row">
-
-  <img class="materialboxed" id="user_avatar" src="/img/picture.jpg" alt="user_avatar" />
-
-</div>
-<div class="col s10 m9 l10">
+<div class="row center">
+  <div class="col s12">
 
   <h5 class="header center"><%= @user.cohort.season %> <%= @user.cohort.language %></h5>
   <h5 class="header center"><%= @user.email %></h5>
   <p class="header center"><a href="/users/<%= @user.id %>/preferences" id="download-button" class="btn-large waves-effect waves-light pink accent-2">Preferences</a></h5>
 
-  <!-- Modal Structure -->
-  <div id="delete-modal" class="modal">
-    <div class="modal-content center">
-      <h4>Are you sure you want to delete your account?</h4>
-      <p>Click Delete below to Confirm</p>
-    </div>
-    <div class="text-right modal-footer">
-      <form action="/users/<%= @user.id %>" method="post">
-        <input type="hidden" name="_method" value="delete">
-        <button style="display: inline; color: 66CCFF;" class="modal-action modal-close waves-effect waves-red btn-flat" type="submit">Delete</button>
-        <a class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
+    <h2 class="header"><%= @user.name %> <%= @user.last_name %></h2>
+    <div class="calendar-form row">
+      <form class="calendar-form-form col s12" action="/pairs" method="post">
+        <input type="hidden" name="partner_id" value="<%= @user.id %>">
+        <div class="row">
+          <div class="col s4 offset-s4 date">
+            <label for="day">Click below to pick a day to pair</label>
+            <input name="day" type="date" class="text-align-center datepicker" value='<%= Time.new().strftime("%m/%d/%Y") %>'>
+
+          </div>
+        </div>
+        <button id="add-pair-btn" class="offset-s5 btn waves-effect waves-light pink accent-2" type="submit">Add Pair</button>
       </form>
     </div>
   </div>
-
-  <div id="logout-modal" class="modal">
-    <div class="modal-content center">
-      <h4>Are you sure you want to log out?</h4>
-      <p>Click Logout below to Confirm</p>
-    </div>
-    <div class="text-right modal-footer">
-      <a href="/sessions/logout" class="modal-action modal-close waves-effect waves-red btn-flat">Logout</a>
-      <a class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
-    </div>
-
+  <a href="/users/<%= @user.id %>/calendar">View Calendar</a>
 </div>
+<%= erb :detail_partial %>

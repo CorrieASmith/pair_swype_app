@@ -22,17 +22,20 @@ helpers do
     end
   end
 
-  def username
-    return session[:user_id]
-  end
-
 end
 
 
 
 get('/') do
-  erb(:index)
+  if login?
+    redirect("/users/#{session[:user_id]}")
+  else
+    erb(:index)
+  end
 end
+
+
+########## admin ##########
 
 get('/admin_login') do
   erb(:admin_login)
@@ -47,6 +50,9 @@ get('/admin') do
   erb(:admin)
 end
 
+########## questions/quiz ##########
+
+
 post('/questions') do
   Question.create({description: params['description']})
   redirect '/admin'
@@ -58,23 +64,30 @@ delete('/questions') do
   redirect '/admin'
 end
 
+get('/quiz') do
+  if session[:user_id]
+    erb(:quiz)
+  else
+    redirect("/sessions/new")
+  end
+end
+
+########## sessions ##########
+
 get('/sessions/new') do
   erb(:user_login)
 end
 
 post('/sessions') do
   email = params.fetch("email")
-  user = User.find_by email: email
-  id = user.id
-  session[:user_id] = id
-  redirect("/users/#{id}")
-end
+  user = User.where(email: email).first
 
-get('/quiz') do
-  if session[:user_id]
-    erb(:quiz)
+  if user != nil
+    id = user.id
+    session[:user_id] = id
+    redirect("/users/#{id}")
   else
-    redirect("/sessions/new")
+    redirect('/sessions/new')
   end
 end
 
@@ -105,6 +118,8 @@ get('/sessions/logout') do
   redirect('/')
 end
 
+########## users ##########
+
 get('/users/new') do
   @cohorts = Cohort.all
   erb(:add_user)
@@ -124,6 +139,7 @@ post('/users') do
   user = User.new({:name => name, :last_name => last_name, :email => email, :password => password, :cohort_id => cohort_id})
   if user.save()
     id = user.id
+    session[:user_id] = id
     redirect("/users/#{id}")
   else
     redirect("/users/new")
@@ -133,7 +149,11 @@ end
 get('/users/:id') do
   id = params.fetch('id').to_i
   @user = User.find(id)
-  erb(:user_detail)
+  if id == session[:user_id]
+    erb :my_detail
+  else
+    erb :user_detail
+  end
 end
 
 get('/users/:id/edit') do
@@ -151,7 +171,7 @@ patch('/users/:id') do
   email = params.fetch("email", @user.email)
   password = params.fetch("password", @user.password)
   cohort_id = params.fetch("cohort_id", @user.cohort_id).to_i
-  @user.update({:name => name, :last_name => last_name, :email => email, :password => password, :cohort_id => cohort_id})
+  @user.update_attributes({:name => name, :last_name => last_name, :email => email, :password => password, :cohort_id => cohort_id})
   redirect("/users/#{id}")
 end
 
@@ -160,4 +180,40 @@ delete('/users/:id') do
   user = User.find(id)
   user.destroy
   redirect('/')
+end
+
+########## cohorts ##########
+
+get('/cohorts/:id') do
+  id = params.fetch("id").to_i
+  @cohort = Cohort.find(id)
+  @users = User.where(cohort_id: id)
+  erb(:cohort_detail)
+end
+
+########## calendar ##########
+
+get('/users/:id/calendar') do
+  @today = Time.new()
+  @user = User.find(params[:id].to_i)
+  erb(:calendar)
+end
+
+########## pairs ##########
+
+post('/pairs') do
+  day = params.fetch('day')
+  partner_id = params.fetch('partner_id').to_i
+  Pair.create({user_id: session[:user_id], partner_id: partner_id, day: day})
+  Pair.create({user_id: partner_id, partner_id: session[:user_id], day: day})
+
+  redirect("/users/#{session[:user_id]}")
+end
+
+delete('/pairs') do
+  pair_id = params.fetch('pair_id').to_i
+  pair = Pair.find(pair_id)
+  pair.destroy_inverse
+  pair.destroy
+  redirect("/users/#{session[:user_id]}")
 end

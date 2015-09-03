@@ -1,11 +1,10 @@
-<h3 class="header center">Students</h3>
+<h3 class="header center"><%= @cohort.language %> <%= @cohort.season %> <%= @cohort.year %></h3>
 <div class="col s10 m9 l10">
 
-  <table class="hoverable centered">
+  <table class="hoverable">
     <thead>
       <tr>
           <th data-field="name">Name</th>
-          <th data-field="language">Cohort</th>
       </tr>
     </thead>
 
@@ -13,7 +12,6 @@
       <% @users.each do |user| %>
       <tr>
         <td><a href="/users/<%= user.id %>"><%= user.name %></a></td>
-        <td><a href="/cohorts/<%= user.cohort.id %>"><%= user.cohort.language %> <%= user.cohort.season %> <%= user.cohort.year %></a></td>
       </tr>
       <% end %>
     </tbody>

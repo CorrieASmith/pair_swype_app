@@ -16,8 +16,12 @@ RSpec.configure do |config|
     User.all.each do |user|
       user.destroy
     end
-    Question.all.each do |preference|
-      preference.destroy
+    Question.all.each do |question|
+      question.destroy
+    end
+    Pair.all.each do |pair|
+      pair.destroy
+
     end
   end
 end
