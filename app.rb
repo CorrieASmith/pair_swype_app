@@ -27,8 +27,13 @@ end
 
 
 get('/') do
-  erb(:index)
+  if login?
+    redirect("/users/#{session[:user_id]}")
+  else
+    erb(:index)
+  end
 end
+
 
 ########## admin ##########
 
