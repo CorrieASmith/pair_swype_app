@@ -150,6 +150,23 @@ delete('/users/:id') do
   redirect('/')
 end
 
+########## cohorts ##########
+
+get('/cohorts/:id') do
+  id = params.fetch("id").to_i
+  @cohort = Cohort.find(id)
+  @users = User.where(cohort_id: id)
+  erb(:cohort_detail)
+end
+
+########## calendar ##########
+
+get('/users/:id/calendar') do
+  @today = Time.new()
+  @user = User.find(params[:id].to_i)
+  erb(:calendar)
+end
+
 ########## pairs ##########
 
 post('/pairs') do

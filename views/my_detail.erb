@@ -5,4 +5,51 @@
     <a style="font-size: 10px" class="modal-trigger" href="#delete-modal">Delete Profile</a>
   </div>
 </div>
-<%= erb :detail_partial %>
+<div class="row">
+  <img class="materialboxed" id="user_avatar" src="/img/picture.jpg" alt="user_avatar" />
+</div>
+
+<div class="row center">
+  <a class="center" href="/users/<%= @user.id %>/calendar">View Calendar</a>
+</div>
+
+<div class="col s5 m5 l5">
+  <h5 class="header center"><a href="/cohorts/<%= @user.cohort.id %>"><%= @user.cohort.season %> <%= @user.cohort.language %> <%= @user.cohort.year %></a></h5>
+  <h5 class="header center"><%= @user.email %></h5>
+  <h5 class="header center">Preferences</h5>
+  <br>
+  <h5 class="header center">Upcoming Pairs</h5>
+  <br>
+  <div class="col s5 m5 l5">
+
+    <table class="hoverable centered">
+      <thead>
+        <tr>
+            <th data-field="partner">Partner</th>
+            <th data-field="day">Day</th>
+            <th data-field="delete">Remove Pair</th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @user.pairs.each do |pair| %>
+        <tr>
+          <td><a href="/users/<%= pair.partner.id %>"><%= pair.partner.name %></a></td>
+          <td><a href="/users/<%=  %>"><%= pair.day %></a></td>
+          <td>
+            <form action="/pairs" method="post">
+              <input type="hidden" name="_method" value="delete">
+              <input type="hidden" name="pair_id" value="<%= pair.id %>">
+
+              <button type="submit" class="waves-effect waves-light btn-sma">Cancel</button>
+            </form>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+
+</div>

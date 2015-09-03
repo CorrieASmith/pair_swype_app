@@ -5,6 +5,8 @@ $(document).ready(function(){
         menuWidth: 300, // Default is 240
         closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
       });
-  $('.datepicker').pickadate({
-  });
+      $('.datepicker').pickadate({
+        min: new Date(2015,8,2),
+        max: new Date(2020,8,29)
+      });
 });

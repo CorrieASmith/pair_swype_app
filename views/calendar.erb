@@ -1,0 +1,35 @@
+
+<div class="row">
+  <table class="hoverable centered striped">
+    <thead>
+      <tr>
+          <th data-field="day">Day</th>
+          <th data-field="date">Date</th>
+          <th data-field="partner">Partner?</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% today = @today %>
+      <% 14.times do %>
+      <tr>
+        <td><%= today.strftime("%A") %></td>
+        <td><%= today.strftime("%m/%d/%Y") %> </td>
+
+            <% if @user.pairs.where(day: today).first != nil%>
+            <td style="color: red;">Paired to <a style="color: red; text-decoration: underline;" href="/users/<%= @user.pairs.where(day: today).first.partner.id %>">
+              <%= @user.pairs.where(day: today).first.partner.name %> <%= @user.pairs.where(day: today).first.partner.last_name %></td>
+            <% else %>
+            <td style="color: green;">Available</td>
+            <% end %>
+
+      </tr>
+      <% today += (60 * 60 * 24) %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="row">
+  <a href="/users/<%= @user.id %>" class="btn waves-effect waves-light teal accent-1">Back</a>
+</div>
