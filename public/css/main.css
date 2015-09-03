@@ -46,3 +46,23 @@
   display: block;
   margin: 0 auto;
 }
+
+.calender-form {
+  position: absolute;
+left: 50%;
+top: 25%;
+width: 50px;
+}
+
+.date {
+  width: 50%;
+  margin-left: 40%;
+}
+
+/*.BUNKER {
+  width: 400px
+  position: absolute;
+left: 100%;
+top: 25%;
+width: 500px;*/
+/*}*/
