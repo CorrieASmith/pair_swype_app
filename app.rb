@@ -23,10 +23,10 @@ helpers do
   end
 
   def adminlogin?
-    if session[:admin_id].nil?
-      return false
+    if session[:admin] == nil
+      false
     else
-      return true
+      true
     end
   end
 end
@@ -41,7 +41,6 @@ get('/') do
   end
 end
 
-
 ########## admin ##########
 
 get('/admin_login') do
@@ -52,6 +51,7 @@ end
 
 post('/admin_login') do
   @admin = Admin.find_by_password(params["password"])
+  session[:admin] = 'true'
   if @admin
     redirect("/admin")
   else
@@ -123,9 +123,9 @@ post('/quiz') do
   Question.all.each do |question|
     value = params["#{question.id}"]
     question_id = question.id
-    if Response.find_by({:user_id => user_id, :question_id => question_id})
+    if Response.where({:user_id => user_id, :question_id => question_id}).first
       update_response = Response.find_by({:user_id => user_id, :question_id => question_id})
-      update_response.update({:value => value})
+      update_response.update_attributes({:value => value})
     else
       Response.create({:user_id => user_id, :question_id => question_id, :value => value})
     end
@@ -135,6 +135,7 @@ end
 
 get('/sessions/logout') do
   session[:user_id] = nil
+  session[:admin] = nil
   redirect('/')
 end
 

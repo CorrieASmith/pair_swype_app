@@ -9,26 +9,30 @@
   <link href='https://fonts.googleapis.com/css?family=Short+Stack' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <ul id="dropdown1" class="dropdown-content">
-      <li><a href="/users/<%= session[:user_id] %>/edit">Edit</a></li>
-      <li><a class="modal-trigger" href="#delete-modal">Delete</a></li>
-      <li class="divider"></li>
-      <li><a class="modal-trigger" href="#logout-modal">Logout</a></li>
-    </ul>
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a href="/users/<%= session[:user_id] %>/edit">Edit</a></li>
+    <li><a class="modal-trigger" href="#delete-modal">Delete</a></li>
+    <li class="divider"></li>
+    <li><a class="modal-trigger" href="#logout-modal">Logout</a></li>
+  </ul>
   <nav class="cyan accent-3" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Pair Swype</a>
       <ul class="right hide-on-med-and-down">
 
-        <% if !(login?) %>
-        <li><a href="/sessions/new">Login</a></li>
-        <li><a href="/users/new">Create Account</a></li>
-        <% else %>
-        <li><a href="/quiz">Take Preference Quiz</a></li>
-        <li><a href="/users/<%= session[:user_id] %>">My Page</a></li>
-        <li><a href="/users">Users</a></li>
-        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Account<i class="material-icons right">arrow_drop_down</i></a></li>
+        <% if !(login?) && !(adminlogin?) %>
+          <li><a href="/sessions/new">Login</a></li>
+          <li><a href="/users/new">Create Account</a></li>
+        <% elsif (login?) %>
+          <li><a href="/quiz">Take Preference Quiz</a></li>
+          <li><a href="/users/<%= session[:user_id] %>">My Page</a></li>
+          <li><a href="/users">Users</a></li>
+          <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Account<i class="material-icons right">arrow_drop_down</i></a></li>
+        <% elsif adminlogin? %>
+          <li><a class="modal-trigger" href="#logout-modal">Logout</a></li>
         <% end %>
+
       </ul>
+
 
       <ul id="nav-mobile" class="side-nav">
         <li><a href="/">Home</a></li>
@@ -73,5 +77,5 @@
       <a href="/sessions/logout" class="modal-action modal-close waves-effect waves-red btn-flat">Logout</a>
       <a class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
     </div>
-</body>
-</html>
+  </body>
+  </html>
