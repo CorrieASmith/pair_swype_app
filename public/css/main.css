@@ -59,10 +59,6 @@ width: 50px;
   margin-left: 40%;
 }
 
-/*.BUNKER {
-  width: 400px
-  position: absolute;
-left: 100%;
-top: 25%;
-width: 500px;*/
-/*}*/
+/*.dropdown-content .active {
+  color: #ff80ab;
+}*/
