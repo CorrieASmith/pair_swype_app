@@ -41,6 +41,11 @@ get('/admin_login') do
   erb(:admin_login)
 end
 
+post('/new_admin') do
+  Admin.create({password: params['password']})
+  redirect '/admin_login'
+end
+
 get('/admin') do
   erb(:admin)
 end
@@ -84,6 +89,28 @@ post('/sessions') do
   else
     redirect('/sessions/new')
   end
+end
+
+get ('/users/:id/preferences') do
+  user_id = params["id"]
+  @user = User.find(user_id)
+  erb(:preferences)
+end
+
+post('/quiz') do
+  user_id = session[:user_id]
+  @user = User.find(user_id)
+  Question.all.each do |question|
+    value = params["#{question.id}"]
+    question_id = question.id
+    if Response.find_by({:user_id => user_id, :question_id => question_id})
+      update_response = Response.find_by({:user_id => user_id, :question_id => question_id})
+      update_response.update({:value => value})
+    else
+      Response.create({:user_id => user_id, :question_id => question_id, :value => value})
+    end
+  end
+  redirect("/users/#{user_id}/preferences")
 end
 
 get('/sessions/logout') do

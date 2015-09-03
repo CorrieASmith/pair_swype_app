@@ -21,6 +21,7 @@ RSpec.configure do |config|
     end
     Pair.all.each do |pair|
       pair.destroy
+
     end
   end
 end
