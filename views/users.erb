@@ -5,8 +5,7 @@
     <thead>
       <tr>
           <th data-field="name">Name</th>
-          <th data-field="language">Language</th>
-          <th data-field="year">Year</th>
+          <th data-field="language">Cohort</th>
       </tr>
     </thead>
 
@@ -14,8 +13,7 @@
       <% @users.each do |user| %>
       <tr>
         <td><a href="/users/<%= user.id %>"><%= user.name %></a></td>
-        <td><a href="/users/<%= user.id %>"><%= user.cohort.language %></a></td>
-        <td><%= user.cohort.season %> <%= user.cohort.year %></td>
+        <td><a href="/users/<%= user.id %>"><%= user.cohort.language %> <%= user.cohort.season %> <%= user.cohort.year %></a></td>
       </tr>
       <% end %>
     </tbody>

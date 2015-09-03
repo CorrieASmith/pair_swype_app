@@ -22,10 +22,6 @@ helpers do
     end
   end
 
-  def username
-    return session[:user_id]
-  end
-
 end
 
 
@@ -34,6 +30,8 @@ get('/') do
   erb(:index)
 end
 
+########## admin ##########
+
 get('/admin_login') do
   erb(:admin_login)
 end
@@ -41,6 +39,9 @@ end
 get('/admin') do
   erb(:admin)
 end
+
+########## questions/quiz ##########
+
 
 post('/questions') do
   Question.create({description: params['description']})
@@ -53,18 +54,6 @@ delete('/questions') do
   redirect '/admin'
 end
 
-get('/sessions/new') do
-  erb(:user_login)
-end
-
-post('/sessions') do
-  email = params.fetch("email")
-  user = User.where(email: email).first
-  id = user.id
-  session[:user_id] = id
-  redirect("/users/#{id}")
-end
-
 get('/quiz') do
   if session[:user_id]
     erb(:quiz)
@@ -73,11 +62,31 @@ get('/quiz') do
   end
 end
 
+########## sessions ##########
+
+get('/sessions/new') do
+  erb(:user_login)
+end
+
+post('/sessions') do
+  email = params.fetch("email")
+  user = User.where(email: email).first
+
+  if user != nil
+    id = user.id
+    session[:user_id] = id
+    redirect("/users/#{id}")
+  else
+    redirect('/sessions/new')
+  end
+end
 
 get('/sessions/logout') do
   session[:user_id] = nil
   redirect('/')
 end
+
+########## users ##########
 
 get('/users/new') do
   @cohorts = Cohort.all
@@ -98,6 +107,7 @@ post('/users') do
   user = User.new({:name => name, :last_name => last_name, :email => email, :password => password, :cohort_id => cohort_id})
   if user.save()
     id = user.id
+    session[:user_id] = id
     redirect("/users/#{id}")
   else
     redirect("/users/new")
@@ -139,6 +149,8 @@ delete('/users/:id') do
   user.destroy
   redirect('/')
 end
+
+########## pairs ##########
 
 post('/pairs') do
   day = params.fetch('day')
