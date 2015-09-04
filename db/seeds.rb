@@ -26,3 +26,7 @@ class Question < ActiveRecord::Base
   Question.create({description: "I need to communicate my feelings throughout the day."})
 
 end
+
+class Admin < ActiveRecord::Base
+  Admin.create({password: 'CorrieJuliannaAlexRyan'})
+end
