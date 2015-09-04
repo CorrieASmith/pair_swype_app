@@ -127,7 +127,6 @@ post('/quiz') do
     question_id = question.id
     if Response.where({:user_id => user_id, :question_id => question_id}).first
       update_response = Response.where({:user_id => user_id, :question_id => question_id}).first
-      update_response = Response.find_by({:user_id => user_id, :question_id => question_id})
       update_response.update_attributes({:value => value})
     else
       Response.create({:user_id => user_id, :question_id => question_id, :value => value})
