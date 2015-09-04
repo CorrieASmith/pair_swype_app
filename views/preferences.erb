@@ -19,7 +19,6 @@
       </tr>
     <% end %>
   </table><br>
-  <a href="/users/<%= @user.id %>" class="btn waves-effect waves-light pink accent-1">Back</a>
 
   <% if @user.id == session[:user_id] %>
     <% if @user.responses == nil %>
@@ -33,6 +32,6 @@
   <% end %>
 
 <% else %>
-  <h5 class="header center">They haven't created any preferences yet!</h5>
+  <h5 class="header center">No preferences yet!</h5>
   <a href="/users/<%= @user.id %>" class="btn waves-effect waves-light pink accent-1">Back</a>
 <% end %>

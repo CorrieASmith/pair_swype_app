@@ -16,7 +16,7 @@
 <div class="col s5 m5 l5">
   <h5 class="header center"><a href="/cohorts/<%= @user.cohort.id %>"><%= @user.cohort.season %> <%= @user.cohort.language %> <%= @user.cohort.year %></a></h5>
   <h5 class="header center"><%= @user.email %></h5>
-  <h5 class="header center"><a href="/users/<%= @user.id %>/preferences">Preferences</a></h5>
+  <p class="header center"><a href="/users/<%= @user.id %>/preferences" id="download-button" class="offset-s5 btn waves-effect waves-light pink accent-2" >Preferences</a></p>
   <br>
   <h5 class="header center">Upcoming Pairs</h5>
   <br>
