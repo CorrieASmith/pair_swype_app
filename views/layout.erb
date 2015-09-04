@@ -26,17 +26,6 @@
     <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Pair Swype</a>
       <ul class="right hide-on-med-and-down">
 
-        <% if !(login?) %>
-        <li><a href="/sessions/new">Login</a></li>
-        <li><a href="/users/new">Create Account</a></li>
-        <% else %>
-        <li><a href="/users/<%= session[:user_id] %>/requests">
-          Requests (<%= User.find(session[:user_id]).requests.length %>)
-        </a></li>
-        <li><a href="/users/<%= session[:user_id] %>">My Page</a></li>
-        <li><a href="/users">Users</a></li>
-        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Account<i class="material-icons right">arrow_drop_down</i></a></li>
-
         <% if !(login?) && !(adminlogin?) %>
           <li><a href="/sessions/new">Login</a></li>
           <li><a href="/users/new">Create Account</a></li>
