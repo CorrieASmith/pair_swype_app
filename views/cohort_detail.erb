@@ -11,9 +11,13 @@
     <tbody>
       <% @users.each do |user| %>
       <tr>
-        <td><a href="/users/<%= user.id %>"><%= user.name %></a></td>
+        <td><a href="/users/<%= user.id %>"><%= user.name %> <%= user.last_name %></a></td>
       </tr>
       <% end %>
     </tbody>
   </table>
+</div>
+<br>
+<div class="row">
+  <a href="/users" class="btn waves-effect waves-light pink accent-1">Back</a>
 </div>

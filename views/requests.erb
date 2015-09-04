@@ -1,0 +1,39 @@
+
+<h3 class="header center">Requests</h3>
+<div class="col s10 m9 l10">
+
+  <table class="hoverable centered">
+    <thead>
+      <tr>
+          <th data-field="name">Message</th>
+          <th data-field="language">Accept</th>
+          <th data-field="language">Dismiss</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @user.requests.each do |request| %>
+      <tr>
+        <td>
+          <a href="/users/<%= request.sender_id %>"><%= User.find(request.sender_id).name %> <%= User.find(request.sender_id).last_name %></a>
+          would like to pair with you on <%= request.day.strftime("%A  %b  %e") %>
+        </td>
+        <td>
+          <form action="/pairs" method="post">
+            <input type="hidden" name="request_id" value="<%= request.id %>">
+            <input type="hidden" name="day" value="<%= request.day %>">
+            <input type="hidden" name="partner_id" value="<%= request.sender_id %>">
+            <button id="add-pair-btn" class="btn waves-effect waves-light btn-flat" type="submit">Accept</button>
+          </form>
+        </td>
+        <td>
+          <form action="/requests/<%= request.id %>" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <button id="add-pair-btn" class="btn waves-effect waves-light btn-flat" type="submit">Dismiss</button>
+          </form>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,3 +1,9 @@
+<div class="message">
+  <% if @message != nil %>
+    <p class="center card-panel red lighten-4"><%= @message %></p>
+  <% end %>
+</div>
+<h5 class="header center">Create User</h5>
 <div class="row">
   <form class="col s12" action="/users" method="post">
     <div class="row">
@@ -24,7 +30,7 @@
 
     <div class="row">
       <div class="input-field col s12">
-        <input id="password" name="password" type="password" class="validate">
+        <input length="20" name="password" type="password" class="validate">
         <label for="password">Password</label>
       </div>
     </div>

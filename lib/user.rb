@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :questions, through: :responses
   before_validation(:title_case)
 
+  has_many :requests
   has_many :pairs
   has_many :partners, :through => :pairs
 
@@ -11,6 +12,11 @@ class User < ActiveRecord::Base
   validates(:last_name, presence: true)
   validates(:email, presence: true)
   validates(:password, { presence: true, length: { minimum: 8, maximum: 20 }})
+
+  def full_name
+    "#{self.name} #{self.last_name}"
+  end
+
 
 private
 

@@ -1,22 +1,22 @@
+<div class="message">
+  <% if @message != nil %>
+    <p class="center card-panel <%= @color %> lighten-4"><%= @message %></p>
+  <% end %>
+</div>
 <div class="row center">
   <div class="col s12">
-
-  <h5 class="header center"><%= @user.cohort.season %> <%= @user.cohort.language %></h5>
-  <h5 class="header center"><%= @user.email %></h5>
-  <p class="header center"><a href="/users/<%= @user.id %>/preferences" id="download-button" class="btn-large waves-effect waves-light pink accent-2">Preferences</a></h5>
-
     <h2 class="header"><%= @user.name %> <%= @user.last_name %></h2>
     <div class="calendar-form row">
-      <form class="calendar-form-form col s12" action="/pairs" method="post">
+      <form class="calendar-form-form col s12" action="/requests" method="post">
         <input type="hidden" name="partner_id" value="<%= @user.id %>">
         <div class="row">
           <div class="col s4 offset-s4 date">
             <label for="day">Click below to pick a day to pair</label>
-            <input name="day" type="date" class="text-align-center datepicker" value='<%= Time.new().strftime("%m/%d/%Y") %>'>
+            <input name="day" type="date" class="text-align-center datepicker" placeholder='<%= Time.new().strftime("%e %B, %Y") %>'>
 
           </div>
         </div>
-        <button id="add-pair-btn" class="offset-s5 btn waves-effect waves-light pink accent-2" type="submit">Add Pair</button>
+        <button id="add-pair-btn" class="offset-s5 btn waves-effect waves-light pink accent-2" type="submit">Request Pair</button>
       </form>
     </div>
   </div>

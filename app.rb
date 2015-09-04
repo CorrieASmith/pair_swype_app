@@ -5,9 +5,9 @@ require 'sinatra/base'
 require 'pry'
 
 before do
-  Cohort.where(language: 'Ruby').first_or_create({trimester: 2, year: 2015})
-  Cohort.where(language: 'PHP').first_or_create({trimester: 2, year: 2015})
-  Cohort.where(language: 'Java').first_or_create({trimester: 2, year: 2015})
+  # Cohort.where(language: 'Ruby').first_or_create({trimester: 2, year: 2015})
+  # Cohort.where(language: 'PHP').first_or_create({trimester: 2, year: 2015})
+  # Cohort.where(language: 'Java').first_or_create({trimester: 2, year: 2015})
 end
 
 enable :sessions
@@ -95,6 +95,7 @@ end
 ########## sessions ##########
 
 get('/sessions/new') do
+  @message = nil
   erb(:user_login)
 end
 
@@ -107,7 +108,8 @@ post('/sessions') do
     session[:user_id] = id
     redirect("/users/#{id}")
   else
-    redirect('/sessions/new')
+    @message = "Error: Could Not Find User"
+    erb(:user_login)
   end
 end
 
@@ -124,6 +126,7 @@ post('/quiz') do
     value = params["#{question.id}"]
     question_id = question.id
     if Response.where({:user_id => user_id, :question_id => question_id}).first
+      update_response = Response.where({:user_id => user_id, :question_id => question_id}).first
       update_response = Response.find_by({:user_id => user_id, :question_id => question_id})
       update_response.update_attributes({:value => value})
     else
@@ -142,6 +145,7 @@ end
 ########## users ##########
 
 get('/users/new') do
+  @message = nil
   @cohorts = Cohort.all
   erb(:add_user)
 end
@@ -163,11 +167,14 @@ post('/users') do
     session[:user_id] = id
     redirect("/users/#{id}")
   else
-    redirect("/users/new")
+    @cohorts = Cohort.all
+    @message = "Error: #{user.errors().full_messages().first()}"
+    erb(:add_user)
   end
 end
 
 get('/users/:id') do
+  @message = nil
   id = params.fetch('id').to_i
   @user = User.find(id)
   if id == session[:user_id]
@@ -225,10 +232,12 @@ end
 post('/pairs') do
   day = params.fetch('day')
   partner_id = params.fetch('partner_id').to_i
-  Pair.create({user_id: session[:user_id], partner_id: partner_id, day: day})
-  Pair.create({user_id: partner_id, partner_id: session[:user_id], day: day})
+  user_id = session[:user_id]
+  Pair.create_inverse(user_id, partner_id, day)
 
-  redirect("/users/#{session[:user_id]}")
+  request_id = params.fetch('request_id').to_i
+  Request.destroy(request_id)
+  redirect("/users/#{session[:user_id]}/requests")
 end
 
 delete('/pairs') do
@@ -237,4 +246,36 @@ delete('/pairs') do
   pair.destroy_inverse
   pair.destroy
   redirect("/users/#{session[:user_id]}")
+end
+
+########## requests ##########
+
+get('/users/:id/requests') do
+  user_id = params.fetch("id").to_i
+  @user = User.find(user_id)
+  erb :requests
+end
+
+post('/requests') do
+  id = params.fetch("partner_id").to_i
+  @user = User.find(id)
+  day = params.fetch("day")
+  @color = ""
+  if day != ""
+    Request.where({sender_id: session[:user_id], user_id: id, day: day}).first_or_create()
+    @color = 'green'
+    @message = "Success! Submitted Pair request to #{@user.name} for #{day}"
+    erb :user_detail
+  else
+    @color = 'red'
+    @message = "Please select a <strong>day</strong> to pair with #{@user.name}"
+    erb :user_detail
+  end
+end
+
+delete('/requests/:id') do
+  request_id = params.fetch("id").to_i
+  request = Request.find(request_id)
+  request.destroy
+  redirect("/users/#{session[:user_id]}/requests")
 end

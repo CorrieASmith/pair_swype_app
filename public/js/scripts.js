@@ -9,4 +9,9 @@ $(document).ready(function(){
         min: new Date(2015,8,2),
         max: new Date(2020,8,29)
       });
+
+      $(document).ready(function() {
+        $('#password').characterCounter();
+      });
+
 });

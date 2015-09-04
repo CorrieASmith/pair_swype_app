@@ -19,8 +19,19 @@
             <% if @user.pairs.where(day: today).first != nil%>
             <td style="color: red;">Paired to <a style="color: red; text-decoration: underline;" href="/users/<%= @user.pairs.where(day: today).first.partner.id %>">
               <%= @user.pairs.where(day: today).first.partner.name %> <%= @user.pairs.where(day: today).first.partner.last_name %></td>
+            <% elsif @user.requests.where(sender_id: session[:user_id], day: today) == [] %>
+            <td>
+              <form class="calendar-form-form col s12" action="/requests" method="post">
+                <input type="hidden" name="partner_id" value="<%= @user.id %>">
+                <input type="hidden" name="day" value='<%= today.strftime("%A %e %b %Y") %>'>
+
+                <button style="color: #66bb6a;" id="add-pair-btn" class="offset-s5 btn-flat waves-effect waves-light" type="submit">Request Pair</button>
+              </form>
+            </td>
             <% else %>
-            <td style="color: green;">Available</td>
+            <td style="color: #00acc1;">
+              REQUEST PENDING
+            </td>
             <% end %>
 
       </tr>

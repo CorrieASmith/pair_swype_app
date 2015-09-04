@@ -1,22 +1,39 @@
 <h2 class="header center"><%= @user.name %>'s Preferences</h2>
 
 <% if @user.questions.any? %>
-  <ol>
+  <table>
+    <thead>
+      <tr>
+        <th>Preference</th>
+        <th>Response</th>
+      </tr>
+    </thead>
     <% @user.questions.each do |question| %>
-      <li><%= question.description %>
-        <p><% question.responses.each do |response| %>
+      <tr><td><%= question.description %></td>
+        <td><% question.responses.each do |response| %>
             <% if response.user_id == @user.id %>
               <%= response.value %>
             <% end %>
           <% end %>
-        </p>
-      </li>
+        </td>
+      </tr>
     <% end %>
-  </ol>
+  </table>
+
   <% if @user.id == session[:user_id] %>
-    <p class="header center"><a href="/quiz" id="download-button" class="btn-large waves-effect waves-light pink accent-2">Retake Preference Quiz</a></p>
+    <% if @user.responses == nil %>
+    <h5 class="header center">You haven't created any preferences yet!</h5>
+    <p class="header center"><a href="/users/<%= @user.id %>" class="btn waves-effect waves-light pink accent-1">Back</a>   <a href="/quiz" id="download-button" class="btn-small waves-effect waves-light pink accent-2">Take Preference Quiz</a></p>
+    <% else %>
+
+      <p class="header center"><a href="/users/<%= @user.id %>" class="btn-flat waves-effect waves-light">Back</a>    <a href="/quiz" id="download-button" class="btn-small waves-effect waves-light pink accent-2 btn">Retake Preference Quiz</a></p>
+
+    <% end %>
   <% end %>
+
 <% else %>
-<h5 class="header center">You haven't created any preferences yet!</h5>
-<p class="header center"><a href="/quiz" id="download-button" class="btn-large waves-effect waves-light pink accent-2">Take Preference Quiz</a></p>
+  <h5 class="header center">They haven't created any preferences yet!</h5>
+  <a href="/users/<%= @user.id %>" class="btn waves-effect waves-light pink accent-1">Back</a>
 <% end %>
+
+<a href="/users/<%= @user.id %>" class="btn waves-effect waves-light pink accent-1">Back</a>
