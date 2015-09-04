@@ -16,12 +16,38 @@
       <li class="divider"></li>
       <li><a class="modal-trigger" href="#logout-modal">Logout</a></li>
     </ul>
-  <ul id="dropdown1" class="dropdown-content">
-    <li><a href="/users/<%= session[:user_id] %>/edit">Edit</a></li>
-    <li><a class="modal-trigger" href="#delete-modal">Delete</a></li>
-    <li class="divider"></li>
-    <li><a class="modal-trigger" href="#logout-modal">Logout</a></li>
+
+    <!-- Review Ryan Code in da future -->
+  <ul id="dropdown2" class="dropdown-content">
+    <% if session[:user_id] != nil %>
+      <% if User.find(session[:user_id]).requests.any? %>
+      <% User.find(session[:user_id]).requests.each do |request| %>
+      <li>
+
+        <a href="/users/<%= request.sender_id %>"><%= User.find(request.sender_id).name %> <%= User.find(request.sender_id).last_name %></a>
+        <div class="container">
+      would like to pair with you on <%= request.day.strftime("%^a  %b  %e") %>
+
+      <form action="/pairs" method="post">
+        <input type="hidden" name="request_id" value="<%= request.id %>">
+        <input type="hidden" name="day" value="<%= request.day %>">
+        <input type="hidden" name="partner_id" value="<%= request.sender_id %>">
+        <button id="add-pair-btn" class="btn waves-effect waves-light btn-flat" type="submit">Accept</button>
+      </form>
+      <form action="/requests/<%= request.id %>" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <button id="add-pair-btn" class="btn waves-effect waves-light btn-flat" type="submit">Dismiss</button>
+      </form>
+      </li>
+        </div>
+
+      <% end %>
+      <% else %>
+      <li><a>No requests at this time</a></li>
+      <% end %>
+    <% end %>
   </ul>
+  <!-- end da ryan code -->
   <nav class="cyan accent-3" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Pair Swype</a>
       <ul class="right hide-on-med-and-down">
@@ -29,8 +55,9 @@
         <% if !(login?) && !(adminlogin?) %>
           <li><a href="/sessions/new">Login</a></li>
           <li><a href="/users/new">Create Account</a></li>
+          <li><a href="/admin_login">Admin</a></li>
         <% elsif (login?) %>
-          <li><a href="/quiz">Take Preference Quiz</a></li>
+          <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Requests (<%= User.find(session[:user_id]).requests.length %>)<i class="material-icons right">arrow_drop_down</i></a></li>
           <li><a href="/users/<%= session[:user_id] %>">My Page</a></li>
           <li><a href="/users">Users</a></li>
           <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Account<i class="material-icons right">arrow_drop_down</i></a></li>

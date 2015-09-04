@@ -237,7 +237,7 @@ post('/pairs') do
 
   request_id = params.fetch('request_id').to_i
   Request.destroy(request_id)
-  redirect("/users/#{session[:user_id]}/requests")
+  redirect("/users/#{session[:user_id]}")
 end
 
 delete('/pairs') do
@@ -274,8 +274,9 @@ post('/requests') do
 end
 
 delete('/requests/:id') do
+
   request_id = params.fetch("id").to_i
   request = Request.find(request_id)
   request.destroy
-  redirect("/users/#{session[:user_id]}/requests")
+  redirect("/users/#{session[:user_id]}")
 end
